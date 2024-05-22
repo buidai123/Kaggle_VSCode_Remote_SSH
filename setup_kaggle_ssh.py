@@ -41,6 +41,7 @@ print(f"ngrok tunnel opened at: {ngrok_url}")
 print(f"To connect via SSH, use the following command:")
 print(f"ssh root@{hostname} -p {port}")
 print(f"Password: {password}")
+sys.stdout.flush()  # Forcing the output to be written out
 
 # Function to handle termination signals
 def signal_handler(sig, frame):
