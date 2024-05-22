@@ -11,19 +11,20 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 ### Step 1: Generate SSH Keys
 1. Open your terminal.
 2. Generate a new SSH key pair by running:
-    here I'm using WSL or you can use Git Bash
+
+   Here I'm using WSL or you can use Git Bash
 
     ```sh
     ssh-keygen -t rsa -b 4096 -C "kaggle_remote_ssh" -f ~/.ssh/kaggle_rsa
     ```
-3. Follow the prompts. Save the keys in the location  ~/.ssh/kaggle_rsa
+4. Follow the prompts. Save the keys in the location  ~/.ssh/kaggle_rsa
 
 ### Step 2: Add the SSH Public Key to GitHub
 
 1. Locate your public key by running:
 
     ```sh
-    cat ~/.ssh/kaggle_rsa
+    cat ~/.ssh/kaggle_rsa.pub
     ```
 
 2. Copy the contents of the public key.
@@ -38,7 +39,7 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 ### Step 3: Get Ngrok Authtoken
 
 1. Go to [Ngrok](https://ngrok.com) and sign in or create an account.
-2. Navigate to the "Auth" section of the dashboard.
+2. Navigate to the "Authtoken" section of the dashboard.
 3. Copy your auth token.
 
 
@@ -49,9 +50,6 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 Create a Kaggle notebook, choose your desired GPU, adjust persistence if needed, enable internet access, and run the following commands in a notebook cell:
 ```bash
 %%bash
-# Use this to ensure the output from Python is not buffered
-# export PYTHONUNBUFFERED=1
-
 # Step 1: Clone the repository, install requirements, and set permissions
 git clone https://github.com/buidai123/Kaggle_VSCode_Remote_SSH.git /kaggle/working/Kaggle_VSCode_Remote_SSH
 
