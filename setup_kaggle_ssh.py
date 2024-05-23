@@ -16,7 +16,12 @@ ngrok_auth_token = sys.argv[1]
 
 # Function to generate random password
 def generate_random_password(length=16):
-    characters = string.ascii_letters + string.digits + string.punctuation
+    # Exclude problematic shell characters
+    characters = (
+        string.ascii_letters + 
+        string.digits + 
+        "!@#$%^*()-_=+{}[]<>.,?"
+    )
     return ''.join(random.choices(characters, k=length))
 
 # Generate random password and set it for root user
