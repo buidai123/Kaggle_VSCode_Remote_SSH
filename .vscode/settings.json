@@ -1,0 +1,13 @@
+{
+    "python.pythonPath": "/opt/conda/bin/python",
+    "editor.formatOnSave": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.lintOnSave": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "python.languageServer": "Pylance"
+    // Add more settings here
+}
+i
