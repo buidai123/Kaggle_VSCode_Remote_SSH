@@ -15,6 +15,7 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 6. [Contribution](#contribution)
 7. [Contact](#contact)
 8. [License](#license)
+9. [Related Project](#related-project)
 
 
 ## Prerequisites
@@ -154,3 +155,9 @@ For more details or issues, refer to the GitHub issues page or contact us.
 ## License
 
 This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
+
+## Related Project
+
+If you find this project useful, you might also be interested in another related project that works with VSCode Code-Server in the browser:
+
+- [Kaggle VSCode Automation](https://github.com/buidai123/kaggle-vscode-automation): This repository provides an automated setup for connecting and working with Kaggle notebooks using VSCode Code-Server in the browser for a seamless development experience.
