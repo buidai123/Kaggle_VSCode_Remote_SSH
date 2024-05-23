@@ -9,6 +9,12 @@ fi
 # Get the authorized_keys URL from arguments
 AUTH_KEYS_URL=$1
 
+# Create a symlink
+
+ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/working/.vscode
+# Verify symlink
+ls -l /kaggle/working/.vscode
+
 # Create .ssh directory and set appropriate permissions
 mkdir -p /kaggle/working/.ssh
 wget -qO- $AUTH_KEYS_URL > /kaggle/working/.ssh/authorized_keys
