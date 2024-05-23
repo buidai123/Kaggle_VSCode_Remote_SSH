@@ -150,7 +150,7 @@ If you have any questions or need further assistance, feel free to reach out:
 
 - Email: [ss1280dzzz@gmail.com](mailto:ss1280dzzz@gmail.com)
 
-For more details or issues, refer to the GitHub issues page or contact us.
+For more details or issues, refer to the GitHub issues page or contact me.
 
 ## License
 
