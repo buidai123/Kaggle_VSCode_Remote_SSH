@@ -10,8 +10,7 @@ fi
 AUTH_KEYS_URL=$1
 
 # Create a symlink
-
-ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/working/.vscode
+ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/.vscode
 # Verify symlink
 ls -l /kaggle/working/.vscode
 
