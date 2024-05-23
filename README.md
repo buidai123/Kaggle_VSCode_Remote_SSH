@@ -62,9 +62,13 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 
 ## Using the SSH Setup on Kaggle
 
+
+
+- Create a Kaggle notebook, choose your desired GPU, adjust persistence if needed, enable internet access.
+
 <img src="images/kaggle1.png" width="200" height="300">
 
-Create a Kaggle notebook, choose your desired GPU, adjust persistence if needed, enable internet access, and run the following commands in a notebook cell:
+- Run the following commands in a notebook cell:
 ```bash
 %%bash
 # Step 1: Clone the repository, install requirements, and set permissions
@@ -74,6 +78,7 @@ cd /kaggle/working/Kaggle_VSCode_Remote_SSH
 
 pip install -r requirements.txt
 
+chmod +x install_extensions.sh
 chmod +x setup_kaggle_ssh.py
 chmod +x setup_ssh.sh
 
@@ -83,28 +88,28 @@ chmod +x setup_ssh.sh
 # Step 3: Run the ngrok setup with Python
 python3 setup_kaggle_ssh.py <you_authtoken>
 ```
-Wait until the setup is complete as shown in the image below.
+- Wait until the setup is complete as shown in the image below.
 
 <img src="images/kaggle2.png">
 
 
 ## Connect via SSH
 
-In Vscode install these two extensions
+- In Vscode install these two extensions
 
 <img src="images/vscode1.png">
 
 
 
-Then hit `ctrl` + `shift` + `p`, search for `Remote-SSH: Connect to Host` and choose `Configure SSH Hosts`
+- Hit `ctrl` + `shift` + `p`, search for `Remote-SSH: Connect to Host` and choose `Configure SSH Hosts`
 
 <img src="images/vscode2.png">
 
-Select the first option or paste the path to your config file in the settings.
+- Select the first option or paste the path to your config file in the settings.
 
 <img src="images/vscode3.png">
 
-Update your `~/.ssh/config` file on your local machine with the connection details:
+- Update your `~/.ssh/config` file on your local machine with the connection details:
 
 ```plaintext
 Host kaggle-notebook
@@ -116,11 +121,11 @@ Host kaggle-notebook
 
 <img src="images/vscode4.png">
 
-Save it and hit `ctrl` + `shift` + `p` again. Choose `Configure SSH Hosts`and select the host name you set earlier.
+- Save it and hit `ctrl` + `shift` + `p` again. Choose `Configure SSH Hosts`and select the host name you set earlier.
 
 <img src="images/vscode5.png">
 
-A new window will appear; if prompted for the OS, choose Linux, then continue and enter your password if required. That's it!
+- A new window will appear; if prompted for the OS, choose Linux, then continue and enter your password if required. That's it!
 
 ## Additional Information
 
