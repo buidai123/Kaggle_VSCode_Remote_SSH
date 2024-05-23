@@ -1,5 +1,22 @@
 # Kaggle_VSCode_Remote_SSH
 This repository provides an efficient setup for connecting to Kaggle notebooks via SSH using `ngrok`.
+
+## Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [SSH Setup](#ssh-setup)
+   - [Step 1: Generate SSH Keys](#step-1-generate-ssh-keys)
+   - [Step 2: Add SSH Public Key to GitHub](#step-2-add-ssh-public-key-to-github)
+   - [Step 3: Get Ngrok Authtoken](#step-3-get-ngrok-authtoken)
+3. [Using the SSH Setup on Kaggle](#using-the-ssh-setup-on-kaggle)
+4. [Connect via SSH](#connect-via-ssh)
+5. [Additional Information](#additional-information)
+   - [Managing SSH Keys](#managing-ssh-keys)
+   - [Troubleshooting](#troubleshooting)
+6. [Contribution](#contribution)
+7. [Contact](#contact)
+8. [License](#license)
+
+
 ## Prerequisites
 
 - Kaggle Notebook
