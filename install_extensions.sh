@@ -3,7 +3,6 @@
 # List of extensions to install
 extensions=(
     "ms-python.python"
-    "ms-vscode-remote.remote-ssh"
     "ms-toolsai.jupyter"
     "esbenp.prettier-vscode"
 )
