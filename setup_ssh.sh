@@ -58,8 +58,8 @@ service ssh restart
 # Capture the environment variables from notebook
 printenv > /kaggle/working/env_vars.txt
 
-# Pause for 2 seconds to ensure the file operations are completed
-sleep 2
+# Pause for 3 seconds to ensure the file operations are completed
+sleep 3
 
 # Source environment variables captured from Kaggle notebook
 source /kaggle/working/env_vars.txt
