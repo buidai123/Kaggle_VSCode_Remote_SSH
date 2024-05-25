@@ -55,6 +55,9 @@ apt-get install -y openssh-server
 service ssh start
 service ssh restart
 
+# Filter out only valid environment variables
+grep -E '^[A-Z0-9_]+=.*' /kaggle/working/raw_env_vars.txt > /kaggle/working/env_vars.txt
+
 # Source environment variables captured from Kaggle notebook
 set -a
 source /kaggle/working/env_vars.txt
