@@ -20,9 +20,6 @@ wget -qO- $AUTH_KEYS_URL > /kaggle/working/.ssh/authorized_keys
 chmod 700 /kaggle/working/.ssh
 chmod 600 /kaggle/working/.ssh/authorized_keys
 
-# Debug: Capture environment variables immediately after wget and before any other setup
-printenv > /kaggle/working/raw_env_vars_stage1.txt
-
 # Configure sshd server
 mkdir -p /var/run/sshd
 {
@@ -76,10 +73,13 @@ sed -i '/^Here is the content of the URL\/Web Page:/d' /kaggle/working/env_vars.
 # Step 5: Remove empty lines again in case they were introduced
 sed -i '/^\s*$/d' /kaggle/working/env_vars.txt
 
-# Source environment variables captured from Kaggle notebook
-set -a
-source /kaggle/working/env_vars.txt
-set +a
+# Step 7: Export environment variables directly, avoiding sourcing problematic file
+while IFS= read -r line; do
+    if [[ "$line" =~ ^[A-Z0-9_]+=.* ]]; then
+        echo "Exporting: $line"
+        eval "export $line"
+    fi
+done < /kaggle/working/env_vars.txt
 
 # Step 8: Debugging - Print the sourced LD_LIBRARY_PATH
 echo "LD_LIBRARY_PATH in the script: $LD_LIBRARY_PATH"
