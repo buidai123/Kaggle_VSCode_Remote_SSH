@@ -9,16 +9,31 @@ fi
 # Get the authorized_keys URL from arguments
 AUTH_KEYS_URL=$1
 
-# Create a symlink
-ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/.vscode
-# Verify symlink
-ls -l /kaggle/.vscode
-
 # Create .ssh directory and set appropriate permissions
 mkdir -p /kaggle/working/.ssh
 wget -qO- $AUTH_KEYS_URL > /kaggle/working/.ssh/authorized_keys
 chmod 700 /kaggle/working/.ssh
 chmod 600 /kaggle/working/.ssh/authorized_keys
+
+# Set up environment variables before other operations to isolate context
+printenv | grep -E '^[A-Z0-9_]+=.*' > /kaggle/working/raw_env_vars.txt
+
+# Initial filtering and cleaning steps for env_vars.txt
+grep -E '^[A-Z0-9_]+=.*' /kaggle/working/raw_env_vars.txt > /kaggle/working/env_vars.txt
+sed -i '/^CompetitionsDatasetsModelsCodeDiscussionsCourses/d' /kaggle/working/env_vars.txt
+sed -i '/^search/d' /kaggle/working/env_vars.txt
+sed -i '/^Skip to/d' /kaggle/working/env_vars.txt
+sed -i '/^Here is the content of the URL\/Web Page:/d' /kaggle/working/env_vars.txt
+sed -i '/^\s*$/d' /kaggle/working/env_vars.txt
+
+# Debugging: Display environment variables after filtering and cleaning
+echo "Contents of env_vars.txt after cleaning:"
+cat /kaggle/working/env_vars.txt
+
+# Create a symlink
+ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/.vscode
+# Verify symlink
+ls -l /kaggle/.vscode
 
 # Configure sshd server
 mkdir -p /var/run/sshd
@@ -55,25 +70,7 @@ apt-get install -y openssh-server
 service ssh start
 service ssh restart
 
-# Debug Step: Capture environment variables after SSH setup
-printenv > /kaggle/working/raw_env_vars_stage2.txt
-
-# Step 1: Capture all environment variables including potential GPU configurations
-printenv > /kaggle/working/raw_env_vars.txt
-
-# Step 3: Filter out only valid environment variables
-grep -E '^[A-Z0-9_]+=.*' /kaggle/working/raw_env_vars.txt > /kaggle/working/env_vars.txt
-
-# Step 4: Additional cleaning steps to ensure no unintended content
-sed -i '/^CompetitionsDatasetsModelsCodeDiscussionsCourses/d' /kaggle/working/env_vars.txt
-sed -i '/^search/d' /kaggle/working/env_vars.txt
-sed -i '/^Skip to/d' /kaggle/working/env_vars.txt
-sed -i '/^Here is the content of the URL\/Web Page:/d' /kaggle/working/env_vars.txt
-
-# Step 5: Remove empty lines again in case they were introduced
-sed -i '/^\s*$/d' /kaggle/working/env_vars.txt
-
-# Step 7: Export environment variables directly, avoiding sourcing problematic file
+# Export environment variables directly, avoiding sourcing problematic file
 while IFS= read -r line; do
     if [[ "$line" =~ ^[A-Z0-9_]+=.* ]]; then
         echo "Exporting: $line"
