@@ -58,13 +58,12 @@ service ssh restart
 # Capture the environment variables from notebook
 printenv > /kaggle/working/env_vars.txt
 
-# Debugging: List the working directory to check for env_vars.txt
-echo "Contents of /kaggle/working directory:"
-ls -l /kaggle/working
+# Debugging: Display the env_vars.txt contents before sourcing
+echo "Contents of env_vars.txt:"
+cat /kaggle/working/env_vars.txt
 
 # Ensure env_vars.txt does not have empty or malformed lines
 sed -i '/^\s*$/d' /kaggle/working/env_vars.txt  # Remove empty lines
-sed -i '/^[0-9]/d' /kaggle/working/env_vars.txt  # Remove lines starting with numbers (example)
 
 # Pause for 3 seconds to ensure the file operations are completed
 sleep 3
