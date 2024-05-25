@@ -55,29 +55,8 @@ apt-get install -y openssh-server
 service ssh start
 service ssh restart
 
-# Capture the environment variables from notebook
-printenv | grep -E '^[A-Z0-9_]+=.*' > /kaggle/working/env_vars.txt
-
-# Remove web page content or unintended content
-sed -i '/^CompetitionsDatasetsModelsCodeDiscussionsCourses/d' /kaggle/working/env_vars.txt
-sed -i '/^search/d' /kaggle/working/env_vars.txt
-sed -i '/^Skip to/d' /kaggle/working/env_vars.txt
-
-# Debugging: Display the env_vars.txt contents before sourcing
-echo "Contents of env_vars.txt:"
-cat /kaggle/working/env_vars.txt
-
-# Ensure env_vars.txt does not have empty or malformed lines
-sed -i '/^\s*$/d' /kaggle/working/env_vars.txt  # Remove empty lines
-
-# Pause for 3 seconds to ensure the file operations are completed
-sleep 3
-
 # Source environment variables captured from Kaggle notebook
 set -a
 source /kaggle/working/env_vars.txt
 set +a
-
-# For debugging purposes, print the newly sourced environment variables
-echo "LD_LIBRARY_PATH in the script: $LD_LIBRARY_PATH"
 
