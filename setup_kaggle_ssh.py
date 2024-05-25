@@ -18,8 +18,8 @@ ngrok_auth_token = sys.argv[1]
 def generate_random_password(length=16):
     # Exclude problematic shell characters
     characters = (
-        string.ascii_letters + 
-        string.digits + 
+        string.ascii_letters +
+        string.digits +
         "!@#$%^*()-_=+{}[]<>.,?"
     )
     return ''.join(random.choices(characters, k=length))
@@ -31,6 +31,10 @@ subprocess.run(f"echo 'root:{password}' | sudo chpasswd", shell=True, check=True
 
 # Ensure SSH server is running and password authentication is enabled
 subprocess.run("service ssh restart", shell=True, check=True)
+
+# Set LD_LIBRARY_PATH for NVIDIA libraries in Python script
+os.environ["LD_LIBRARY_PATH"] = "/usr/lib64-nvidia:" + os.environ.get("LD_LIBRARY_PATH", "")
+print(f"LD_LIBRARY_PATH in the script: {os.environ['LD_LIBRARY_PATH']}")
 
 # Set ngrok auth token
 ngrok.set_auth_token(ngrok_auth_token)

@@ -44,6 +44,11 @@ echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config
 echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc
 echo "export LD_LIBRARY_PATH" >> /root/.bashrc
 
+# Print LD_LIBRARY_PATH for debugging purposes
+echo "LD_LIBRARY_PATH after setting in .bashrc:"
+source /root/.bashrc
+echo $LD_LIBRARY_PATH
+
 # Update and install SSH server
 apt-get update
 apt-get install -y openssh-server
