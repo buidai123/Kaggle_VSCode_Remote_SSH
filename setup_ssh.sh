@@ -64,8 +64,8 @@ sed -i '/Skip to/d' /kaggle/working/env_vars.txt
 # Ensure env_vars.txt does not have empty or malformed lines
 sed -i '/^\s*$/d' /kaggle/working/env_vars.txt  # Remove empty lines
 
-# Pause for 2 seconds to ensure the file operations are completed
-sleep 2
+# Pause for 3 seconds to ensure the file operations are completed
+sleep 3
 
 # Source environment variables captured from Kaggle notebook
 set -a
