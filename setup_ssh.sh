@@ -49,6 +49,10 @@ echo "LD_LIBRARY_PATH after setting in .bashrc:"
 source /root/.bashrc
 echo $LD_LIBRARY_PATH
 
+# Update and install necessary packages
+apt-get update
+apt-get install -y openssh-server libmkl-dev libmkl-avx2 libmkl-vml-def
+
 # Update and install SSH server
 apt-get update
 apt-get install -y openssh-server
