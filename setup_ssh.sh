@@ -15,6 +15,9 @@ cat /kaggle/working/raw_env_vars_pre_web.txt
 # Final filtering and cleaning steps for env_vars_pre_web.txt
 grep -E '^[A-Z0-9_]+=.*' /kaggle/working/raw_env_vars_pre_web.txt > /kaggle/working/env_vars.txt
 
+# LD_LIBRARY_PATH debug
+echo "LD_LIBRARY_PATH at this point: $LD_LIBRARY_PATH"
+
 # Load the cleaned environment variables
 while IFS= read -r line; do
     if [[ "$line" =~ ^[A-Z0-9_]+=.* ]]; then
@@ -61,8 +64,19 @@ mkdir -p /var/run/sshd
 echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc
 echo "export LD_LIBRARY_PATH" >> /root/.bashrc
 
-# Print LD_LIBRARY_PATH for debugging purposes
-echo "LD_LIBRARY_PATH after setting in .bashrc:"
+# Additional Path for MKL libraries
+MKL_PATH=$(python -c "import numpy; print(numpy.__path__[0] + '/../../../../../lib');" 2>/dev/null)
+if [ ! -z "$MKL_PATH" ]; then
+    echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MKL_PATH" >> /root/.bashrc
+    echo "export LD_LIBRARY_PATH" >> /root/.bashrc
+    source /root/.bashrc
+fi
+
+# Install MKL via conda
+conda install -y mkl
+
+# Debug LD_LIBRARY_PATH
+echo "Final LD_LIBRARY_PATH after all setups:"
 source /root/.bashrc
 echo $LD_LIBRARY_PATH
 
@@ -72,6 +86,9 @@ apt-get install -y openssh-server
 service ssh start
 service ssh restart
 
-# Step 8: Debugging - Print the sourced LD_LIBRARY_PATH
-echo "LD_LIBRARY_PATH in the script: $LD_LIBRARY_PATH"
+# Clean up the environment variable files
+rm /kaggle/working/raw_env_vars_pre_web.txt
+rm /kaggle/working/env_vars.txt
+
+echo "Temporary environment variable files have been deleted."
 
