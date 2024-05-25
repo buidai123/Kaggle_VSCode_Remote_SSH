@@ -6,25 +6,27 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-# Refreshing environment variables capture early
+# Capture and filter environment variables before any web operation
 printenv | grep -E '^[A-Z0-9_]+=.*' > /kaggle/working/raw_env_vars_pre_web.txt
 
-echo "Capturing environment variables before any web operation..."
-cat /kaggle/working/raw_env_vars_pre_web.txt
-
-# Final filtering and cleaning steps for env_vars_pre_web.txt
+# Final filtering and cleaning steps for env_vars.txt
 grep -E '^[A-Z0-9_]+=.*' /kaggle/working/raw_env_vars_pre_web.txt > /kaggle/working/env_vars.txt
+sed -i '/^CompetitionsDatasetsModelsCodeDiscussionsCourses/d' /kaggle/working/env_vars.txt
+sed -i '/^search/d' /kaggle/working/env_vars.txt
+sed -i '/^Skip to/d' /kaggle/working/env_vars.txt
+sed -i '/^Here is the content of the URL\/Web Page:/d' /kaggle/working/env_vars.txt
+sed -i '/^\s*$/d' /kaggle/working/env_vars.txt
 
-# LD_LIBRARY_PATH debug
-echo "LD_LIBRARY_PATH at this point: $LD_LIBRARY_PATH"
-
-# Load the cleaned environment variables
+# Load cleaned environment variables
 while IFS= read -r line; do
     if [[ "$line" =~ ^[A-Z0-9_]+=.* ]]; then
         echo "Exporting: $line"
         eval "export $line"
     fi
 done < /kaggle/working/env_vars.txt
+
+# LD_LIBRARY_PATH debug
+echo "LD_LIBRARY_PATH at this point: $LD_LIBRARY_PATH"
 
 # Get the authorized_keys URL from arguments
 AUTH_KEYS_URL=$1
@@ -60,24 +62,30 @@ mkdir -p /var/run/sshd
     echo "AcceptEnv LANG LC_*"
 } >> /etc/ssh/sshd_config
 
-# Set LD_LIBRARY_PATH for NVIDIA libraries
-echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc
-echo "export LD_LIBRARY_PATH" >> /root/.bashrc
-
-# Additional Path for MKL libraries
-MKL_PATH=$(python -c "import numpy; print(numpy.__path__[0] + '/../../../../../lib');" 2>/dev/null)
-if [ ! -z "$MKL_PATH" ]; then
-    echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MKL_PATH" >> /root/.bashrc
-    echo "export LD_LIBRARY_PATH" >> /root/.bashrc
-    source /root/.bashrc
+# Check if conda is installed, if not install it
+if ! command -v conda &> /dev/null; then
+    echo "Conda is not installed, installing Miniconda."
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /kaggle/working/miniconda.sh
+    bash /kaggle/working/miniconda.sh -b -p /opt/conda
+    rm /kaggle/working/miniconda.sh
+    export PATH=/opt/conda/bin:$PATH
+    conda init
+    source ~/.bashrc
 fi
 
-# Install MKL via conda
+# Ensure MKL is installed via conda
+echo "Ensuring MKL is installed via conda..."
 conda install -y mkl
+
+# Ensure proper LD_LIBRARY_PATH for MKL
+echo "LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/opt/conda/lib" >> /root/.bashrc
+echo "export LD_LIBRARY_PATH" >> /root/.bashrc
+
+# Update LD_LIBRARY_PATH
+source /root/.bashrc
 
 # Debug LD_LIBRARY_PATH
 echo "Final LD_LIBRARY_PATH after all setups:"
-source /root/.bashrc
 echo $LD_LIBRARY_PATH
 
 # Update and install SSH server
@@ -91,4 +99,3 @@ rm /kaggle/working/raw_env_vars_pre_web.txt
 rm /kaggle/working/env_vars.txt
 
 echo "Temporary environment variable files have been deleted."
-
