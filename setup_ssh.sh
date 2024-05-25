@@ -58,8 +58,10 @@ service ssh restart
 # Capture the environment variables from notebook
 printenv | grep -E '^[A-Z0-9_]+=.*' > /kaggle/working/env_vars.txt
 
-# Remove web page content lines, if any
-sed -i '/Skip to/d' /kaggle/working/env_vars.txt
+# Remove web page content or unintended content
+sed -i '/^CompetitionsDatasetsModelsCodeDiscussionsCourses/d' /kaggle/working/env_vars.txt
+sed -i '/^search/d' /kaggle/working/env_vars.txt
+sed -i '/^Skip to/d' /kaggle/working/env_vars.txt
 
 # Debugging: Display the env_vars.txt contents before sourcing
 echo "Contents of env_vars.txt:"
