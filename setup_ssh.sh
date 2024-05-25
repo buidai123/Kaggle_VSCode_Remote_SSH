@@ -14,14 +14,6 @@ cat /kaggle/working/raw_env_vars_pre_web.txt
 
 # Final filtering and cleaning steps for env_vars_pre_web.txt
 grep -E '^[A-Z0-9_]+=.*' /kaggle/working/raw_env_vars_pre_web.txt > /kaggle/working/env_vars.txt
-sed -i '/^CompetitionsDatasetsModelsCodeDiscussionsCourses/d' /kaggle/working/env_vars.txt
-sed -i '/^search/d' /kaggle/working/env_vars.txt
-sed -i '/^Skip to/d' /kaggle/working/env_vars.txt
-sed -i '/^Here is the content of the URL\/Web Page:/d' /kaggle/working/env_vars.txt
-sed -i '/^\s*$/d' /kaggle/working/env_vars.txt
-
-echo "Final cleaned environment variables:"
-cat /kaggle/working/env_vars.txt
 
 # Load the cleaned environment variables
 while IFS= read -r line; do
