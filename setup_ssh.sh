@@ -61,6 +61,10 @@ printenv | grep -E '^[A-Z0-9_]+=.*' > /kaggle/working/env_vars.txt
 # Remove web page content lines, if any
 sed -i '/Skip to/d' /kaggle/working/env_vars.txt
 
+# Debugging: Display the env_vars.txt contents before sourcing
+echo "Contents of env_vars.txt:"
+cat /kaggle/working/env_vars.txt
+
 # Ensure env_vars.txt does not have empty or malformed lines
 sed -i '/^\s*$/d' /kaggle/working/env_vars.txt  # Remove empty lines
 
