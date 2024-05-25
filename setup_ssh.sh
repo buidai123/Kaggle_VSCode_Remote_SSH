@@ -56,7 +56,10 @@ service ssh start
 service ssh restart
 
 # Capture the environment variables from notebook
-printenv > /kaggle/working/env_vars.txt
+printenv | grep -E '^[A-Z0-9_]+=.*' > /kaggle/working/env_vars.txt
+
+# Remove web page content lines, if any
+sed -i '/Skip to/d' /kaggle/working/env_vars.txt
 
 # Debugging: Display the env_vars.txt contents before sourcing
 echo "Contents of env_vars.txt:"
@@ -69,5 +72,10 @@ sed -i '/^\s*$/d' /kaggle/working/env_vars.txt  # Remove empty lines
 sleep 3
 
 # Source environment variables captured from Kaggle notebook
+set -a
 source /kaggle/working/env_vars.txt
+set +a
+
+# For debugging purposes, print the newly sourced environment variables
+echo "LD_LIBRARY_PATH in the script: $LD_LIBRARY_PATH"
 
