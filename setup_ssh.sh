@@ -64,10 +64,6 @@ printenv > /kaggle/working/raw_env_vars_stage2.txt
 # Step 1: Capture all environment variables including potential GPU configurations
 printenv > /kaggle/working/raw_env_vars.txt
 
-# Step 2: Debugging step - Display raw captured environment variables
-echo "Contents of raw_env_vars.txt:"
-cat /kaggle/working/raw_env_vars.txt
-
 # Step 3: Filter out only valid environment variables
 grep -E '^[A-Z0-9_]+=.*' /kaggle/working/raw_env_vars.txt > /kaggle/working/env_vars.txt
 
@@ -79,10 +75,6 @@ sed -i '/^Here is the content of the URL\/Web Page:/d' /kaggle/working/env_vars.
 
 # Step 5: Remove empty lines again in case they were introduced
 sed -i '/^\s*$/d' /kaggle/working/env_vars.txt
-
-# Step 6: Debugging step - Display cleaned environment variables
-echo "Contents of env_vars.txt after cleaning:"
-cat /kaggle/working/env_vars.txt
 
 # Source environment variables captured from Kaggle notebook
 set -a
