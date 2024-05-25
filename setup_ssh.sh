@@ -22,18 +22,27 @@ chmod 600 /kaggle/working/.ssh/authorized_keys
 
 # Configure sshd server
 mkdir -p /var/run/sshd
+echo "Port 22" >> /etc/ssh/sshd_config
 echo "Protocol 2" >> /etc/ssh/sshd_config
 echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 echo "AuthorizedKeysFile /kaggle/working/.ssh/authorized_keys" >> /etc/ssh/sshd_config
+
+# Additional configurations to ensure smooth operation
 echo "TCPKeepAlive yes" >> /etc/ssh/sshd_config
 echo "X11Forwarding yes" >> /etc/ssh/sshd_config
 echo "X11DisplayOffset 10" >> /etc/ssh/sshd_config
 echo "IgnoreRhosts yes" >> /etc/ssh/sshd_config
 echo "HostbasedAuthentication no" >> /etc/ssh/sshd_config
 echo "PrintLastLog yes" >> /etc/ssh/sshd_config
+echo "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config
+echo "UsePAM yes" >> /etc/ssh/sshd_config
 echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config
+
+# Set LD_LIBRARY_PATH for NVIDIA libraries
+echo "LD_LIBRARY_PATH=/usr/lib64-nvidia" >> /root/.bashrc
+echo "export LD_LIBRARY_PATH" >> /root/.bashrc
 
 # Update and install SSH server
 apt-get update
