@@ -72,9 +72,14 @@ install_packages() {
     echo "Ensuring MKL and CUDA are installed via conda..."
     conda install -y mkl
 
-    echo "Exporting LD_LIBRARY_PATH"
-    echo "LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/cuda/lib64" >> /root/.bashrc
-    echo "export LD_LIBRARY_PATH" >> /root/.bashrc
+    echo "Updating environment variables..."
+    {
+        echo "export PATH=/opt/bin:/opt/conda/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:/usr/local/lib/x86_64-linux-gnu:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/conda/lib"
+        echo "export CUDA_HOME=/usr/local/cuda"
+    } >> /root/.bashrc
+
+    # Source the bashrc immediately
     source /root/.bashrc
 
     apt-get update
