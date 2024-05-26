@@ -87,3 +87,5 @@ echo "Verifying fastai import..."
 python3 -c "from fastai.vision.all import *;print('fastai import successful')"
 
 echo "Setup script completed successfully"
+
+rm /kaggle/working/kaggle_env_vars.txt

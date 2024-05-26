@@ -72,7 +72,10 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 - Run the following commands in a notebook cell:
 ```bash
 %%bash
-# Step 1: Clone the repository, install requirements, and set permissions
+# Step 1: pre-capture environment variables
+printenv > /kaggle/working/kaggle_env_vars.txt
+
+# Step 2: Clone the repository, install requirements, and set permissions
 git clone https://github.com/buidai123/Kaggle_VSCode_Remote_SSH.git /kaggle/working/Kaggle_VSCode_Remote_SSH
 
 cd /kaggle/working/Kaggle_VSCode_Remote_SSH
@@ -83,10 +86,10 @@ chmod +x install_extensions.sh
 chmod +x setup_kaggle_ssh.py
 chmod +x setup_ssh.sh
 
-# Step 2: Run the SSH setup
+# Step 3: Run the SSH setup
 ./setup_ssh.sh <your_authorized_key_repo>
 
-# Step 3: Run the ngrok setup with Python
+# Step 4: Run the ngrok setup with Python
 python3 setup_kaggle_ssh.py <you_authtoken>
 ```
 - Wait until the setup is complete as shown in the image below.
