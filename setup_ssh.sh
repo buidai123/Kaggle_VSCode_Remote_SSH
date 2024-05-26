@@ -109,7 +109,7 @@ cleanup() {
     verify_fastai_import &
     wait
     cleanup
-) &
+)
 
 echo "Setup script completed successfully"
 
