@@ -67,21 +67,21 @@ configure_sshd() {
     } >> /etc/ssh/sshd_config
 }
 
-# Function to install necessary packages
 install_packages() {
     echo "Ensuring MKL and CUDA are installed via conda..."
     conda install -y mkl
 
     echo "Updating environment variables..."
     {
-        echo "export PATH=$PATH:/opt/bin:/opt/conda/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:/usr/local/lib/x86_64-linux-gnu:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/conda/lib"
-        echo "export CUDA_HOME=/usr/local/cuda"
+        echo 'export PATH=$PATH:/usr/local/cuda/bin:/usr/local/nvidia/bin:/opt/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:/usr/local/lib/x86_64-linux-gnu:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/conda/lib:$LD_LIBRARY_PATH'
+        echo 'export CUDA_HOME=/usr/local/cuda'
     } >> /root/.bashrc
 
-    # Source the bashrc immediately
+    # Source the bashrc immediately to apply changes for the current session
     source /root/.bashrc
 
+    echo "Installing openssh-server..."
     apt-get update
     apt-get install -y openssh-server
 }
@@ -111,7 +111,6 @@ cleanup() {
     install_packages
     wait
     start_ssh_service &
-    verify_fastai_import &
     wait
     cleanup
 )
