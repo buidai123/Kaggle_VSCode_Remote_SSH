@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e  # Exit immediately if a command exits with
+
 # Function to export environment variables from a file
 export_env_vars_from_file() {
     local env_file=$1
@@ -64,6 +66,9 @@ configure_sshd() {
         echo "ChallengeResponseAuthentication no"
         echo "UsePAM yes"
         echo "AcceptEnv LANG LC_*"
+        echo "AllowTcpForwarding yes"
+        echo "GatewayPorts yes"
+        echo "PermitTunnel yes"
     } >> /etc/ssh/sshd_config
 }
 
