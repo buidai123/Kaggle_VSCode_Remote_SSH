@@ -73,8 +73,8 @@ configure_sshd() {
 }
 
 install_packages() {
-    echo "Ensuring MKL and CUDA are installed via conda..."
-    conda install -y mkl
+    #echo "Ensuring MKL and CUDA are installed via conda..."
+    #conda install -y mkl
 
     echo "Updating environment variables..."
     {
