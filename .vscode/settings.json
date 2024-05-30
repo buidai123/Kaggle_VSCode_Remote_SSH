@@ -9,17 +9,21 @@
     "telemetry.telemetryLevel": "off",
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
-    "workbench.tree.renderIndentGuides": "none",
-    "files.watcherExclude": {
-        "**/node_modules/**": true,
-        "**/target/**": true
-    },
-    "search.exclude": { "**/node_modules": true },
     "python.jediEnabled": false,
     "python.analysis.memory.keepLibraryAst": false,
     "python.analysis.indexing": false,
     "python.analysis.completeFunctionParens": true,
     "python.linting.enabled": true,
-    "python.linting.pylintEnabled": false
+    "python.linting.pylintEnabled": false,
+    "remote.SSH.useLocalServer": true,
+    "remote.SSH.remoteServerListenOnSocket": false,
+    "remote.SSH.showLoginTerminal": false,
+    "remote.SSH.enableDynamicForwarding": true,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggest.localityBonus": true,
+    "editor.suggest.shareSuggestSelections": true,
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "python.analysis.cacheSize": 2048  // Adjust cache size according to your needs
+
     // Add more settings here
 }
