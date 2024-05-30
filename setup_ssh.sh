@@ -42,9 +42,19 @@ setup_ssh_directory() {
 
 # Function to create symlink
 create_symlink() {
-    ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/.vscode
-    # Verify symlink
-    ls -l /kaggle/.vscode
+    # Check if the .vscode directory exists
+    if [ -d /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode ]; then
+        # Remove existing .vscode symlink if it exists
+        [ -L /kaggle/.vscode ] && rm /kaggle/.vscode
+
+        ln -s /kaggle/working/Kaggle_VSCode_Remote_SSH/.vscode /kaggle/.vscode
+        echo "Symlink to .vscode folder created."
+
+        # Verify symlink
+        ls -l /kaggle/.vscode
+    else
+        echo ".vscode directory not found in repository."
+    fi
 }
 
 # Function to configure sshd
@@ -121,4 +131,8 @@ cleanup() {
 )
 
 echo "Setup script completed successfully"
+
+# Extensions will be automatically recommended for installation based on .vscode/extensions.json
+
+echo "All tasks completed successfully"
 
