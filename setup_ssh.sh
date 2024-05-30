@@ -105,9 +105,9 @@ install_packages() {
 
 # Function to start SSH service
 start_ssh_service() {
-    systemctl start ssh
-    systemctl enable ssh
-    systemctl restart ssh
+    service ssh start
+    service ssh enable
+    service ssh restart
 }
 
 # Function to verify fastai import
