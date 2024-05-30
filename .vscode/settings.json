@@ -1,12 +1,26 @@
 {
     "python.pythonPath": "/opt/conda/bin/python",
     "editor.formatOnSave": true,
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.lintOnSave": true,
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
-    "python.languageServer": "Pylance"
+    "python.languageServer": "Pylance",
+    "telemetry.telemetryLevel": "off",
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "editor.smoothScrolling": false,
+    "workbench.tree.renderIndentGuides": "none",
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/.git/**": true,
+        "**/target/**": true
+    },
+    "python.jediEnabled": false,
+    "python.analysis.memory.keepLibraryAst": false,
+    "python.analysis.indexing": false,
+    "python.analysis.completeFunctionParens": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false
     // Add more settings here
 }
