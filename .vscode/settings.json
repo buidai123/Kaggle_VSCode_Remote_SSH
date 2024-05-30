@@ -9,13 +9,12 @@
     "telemetry.telemetryLevel": "off",
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
-    "editor.smoothScrolling": false,
     "workbench.tree.renderIndentGuides": "none",
     "files.watcherExclude": {
         "**/node_modules/**": true,
-        "**/.git/**": true,
         "**/target/**": true
     },
+    "search.exclude": { "**/node_modules": true },
     "python.jediEnabled": false,
     "python.analysis.memory.keepLibraryAst": false,
     "python.analysis.indexing": false,

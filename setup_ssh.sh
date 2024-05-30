@@ -79,6 +79,8 @@ configure_sshd() {
         echo "AllowTcpForwarding yes"
         echo "GatewayPorts yes"
         echo "PermitTunnel yes"
+        echo "ClientAliveInterval 60"
+        echo "ClientAliveCountMax 2"
     } >> /etc/ssh/sshd_config
 }
 
