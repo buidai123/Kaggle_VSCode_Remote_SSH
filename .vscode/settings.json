@@ -1,29 +1,16 @@
 {
     "python.pythonPath": "/opt/conda/bin/python",
     "editor.formatOnSave": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.lintOnSave": true,
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "python.languageServer": "Pylance",
-    "telemetry.telemetryLevel": "off",
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
-    "python.jediEnabled": false,
-    "python.analysis.memory.keepLibraryAst": false,
     "python.analysis.indexing": false,
     "python.analysis.completeFunctionParens": true,
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": false,
-    "remote.SSH.useLocalServer": true,
     "remote.SSH.remoteServerListenOnSocket": false,
-    "remote.SSH.showLoginTerminal": false,
-    "remote.SSH.enableDynamicForwarding": true,
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggest.localityBonus": true,
     "editor.suggest.shareSuggestSelections": true,
     "editor.suggestSelection": "recentlyUsedByPrefix",
-    "python.analysis.cacheSize": 2048  // Adjust cache size according to your needs
 
     // Add more settings here
 }

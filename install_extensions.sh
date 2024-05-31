@@ -4,7 +4,6 @@
 extensions=(
     "ms-python.python"
     "ms-toolsai.jupyter"
-    "esbenp.prettier-vscode"
 )
 
 # Install each extension
