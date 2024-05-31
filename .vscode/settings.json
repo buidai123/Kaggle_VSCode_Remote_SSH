@@ -10,7 +10,15 @@
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggest.localityBonus": true,
     "editor.suggest.shareSuggestSelections": true,
+    "editor.quickSuggestionsDelay": 50,
     "editor.suggestSelection": "recentlyUsedByPrefix",
+    "files.watcherExclude": {
+        "**/.git/**": true,
+        "**/node_modules/**": true,
+        "**/target/**": true,
+        "**/.ipynb_checkpoints/**": true
+    },
+    "editor.minimap.enabled": false
 
     // Add more settings here
 }
