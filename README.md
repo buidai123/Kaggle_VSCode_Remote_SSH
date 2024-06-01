@@ -104,7 +104,6 @@ python3 setup_kaggle_ssh.py <you_authtoken>
 <img src="images/vscode1.png">
 
 
-
 - Hit `ctrl` + `shift` + `p`, search for `Remote-SSH: Connect to Host` and choose `Configure SSH Hosts`
 
 <img src="images/vscode2.png">
@@ -130,6 +129,12 @@ Host kaggle-notebook
 <img src="images/vscode5.png">
 
 - A new window will appear; if prompted for the OS, choose Linux, then continue and enter your password if required. That's it!
+
+- Note that the first time you connect if it said `could not connect...` then you need to empty your config file and this time choose `Add New SSH Host...` and paste this command in
+```bash
+ssh root@<HostName> -p <Port>
+```
+Replace `<HostName>` and `<Port>` like before
 
 ## Additional Information
 
