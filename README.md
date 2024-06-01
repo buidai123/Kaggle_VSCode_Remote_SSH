@@ -80,6 +80,8 @@ git clone https://github.com/buidai123/Kaggle_VSCode_Remote_SSH.git /kaggle/work
 
 cd /kaggle/working/Kaggle_VSCode_Remote_SSH
 
+pip install -r requirements.txt
+
 chmod +x install_extensions.sh
 chmod +x setup_kaggle_ssh.py
 chmod +x setup_ssh.sh
