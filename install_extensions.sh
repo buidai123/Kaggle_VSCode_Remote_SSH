@@ -4,6 +4,7 @@
 extensions=(
     "ms-python.python"
     "ms-toolsai.jupyter"
+    "CS50.ddb50"
 )
 
 # Install each extension
