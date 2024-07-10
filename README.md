@@ -26,6 +26,13 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 
 ## SSH Setup
 
+### Important Note
+
+Due to recent Ngrok policy changes, using its services might be limited:
+
+1. **Data Transfer Limits**: Free account are limited to 1GB data transfer.
+2. **Credit or Debit Card Requirement**: New accounts may require a credit or debit card for verification.
+
 ### Step 1: Generate SSH Keys
 1. Open your terminal.
 2. Generate a new SSH key pair by running:
@@ -99,7 +106,7 @@ python3 setup_kaggle_ssh.py <you_authtoken>
 
 ## Connect via SSH
 
-- In Vscode install these two extensions
+- Install the required VSCode extensions.
 
 <img src="images/vscode1.png">
 
@@ -136,17 +143,22 @@ ssh root@<HostName> -p <Port>
 ```
 Replace `<HostName>` and `<Port>` like before
 
+- After connected you can open terminal and run the following command to install necessary extension 
+```sh
+    ./working/Kaggle_VSCode_Remote_SSH/install_extensions.sh
+```
+
 ## Additional Information
 
 ### Managing SSH Keys
 
-- **Multiple Keys**: If you need to manage multiple SSH keys, ensure each key pair is stored in a separate file, and configure the SSH client to use the appropriate key for each connection.
-- **Security**: Keep your private keys secure and never share them. Only the public key should be distributed.
+- **Multiple Keys**: Store each key pair in separate files and configure SSH clients to use the appropriate key.
+- **Security**: Secure your private keys and distribute only public keys.
 
 ### Troubleshooting
 
 - **Connectivity Issues**: Ensure that your Kaggle Notebook is running and that the ngrok tunnel is active.
-- **Permission Denied**: Double-check the permissions and paths to your SSH keys. Ensure the public key is correctly added to GitHub and authorized in the Kaggle Notebook.
+- **Permission Denied**: Verify permissions and paths to your SSH keys and ensure the public key is authorized in the Kaggle Notebook.
 
 ## Contribution
 
