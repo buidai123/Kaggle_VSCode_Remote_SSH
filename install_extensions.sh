@@ -5,6 +5,7 @@ extensions=(
     "ms-python.python"
     "ms-toolsai.jupyter"
     "CS50.ddb50"
+    "wheredoesyourmindgo.gruvbox-concoctis"
 )
 
 # Install each extension
@@ -17,4 +18,3 @@ done
 wait
 
 echo "All extensions have been installed."
-
