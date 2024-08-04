@@ -1,7 +1,9 @@
 # Kaggle_VSCode_Remote_SSH
+
 This repository provides an efficient setup for connecting to Kaggle notebooks via SSH using `ngrok`.
 
 ## Table of Contents
+
 1. [Prerequisites](#prerequisites)
 2. [SSH Setup](#ssh-setup)
    - [Step 1: Generate SSH Keys](#step-1-generate-ssh-keys)
@@ -12,11 +14,6 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 5. [Additional Information](#additional-information)
    - [Managing SSH Keys](#managing-ssh-keys)
    - [Troubleshooting](#troubleshooting)
-6. [Contribution](#contribution)
-7. [Contact](#contact)
-8. [License](#license)
-9. [Related Project](#related-project)
-
 
 ## Prerequisites
 
@@ -34,23 +31,25 @@ Due to recent Ngrok policy changes, using its services might be limited:
 2. **Credit or Debit Card Requirement**: New accounts may require a credit or debit card for verification.
 
 ### Step 1: Generate SSH Keys
+
 1. Open your terminal.
 2. Generate a new SSH key pair by running:
 
    Here I'm using WSL or you can use Git Bash
 
-    ```sh
-    ssh-keygen -t rsa -b 4096 -C "kaggle_remote_ssh" -f ~/.ssh/kaggle_rsa
-    ```
-4. Follow the prompts. Save the keys in the location  ~/.ssh/kaggle_rsa
+   ```sh
+   ssh-keygen -t rsa -b 4096 -C "kaggle_remote_ssh" -f ~/.ssh/kaggle_rsa
+   ```
+
+3. Follow the prompts. Save the keys in the location ~/.ssh/kaggle_rsa
 
 ### Step 2: Add the SSH Public Key to GitHub
 
 1. Locate your public key by running:
 
-    ```sh
-    cat ~/.ssh/kaggle_rsa.pub
-    ```
+   ```sh
+   cat ~/.ssh/kaggle_rsa.pub
+   ```
 
 2. Copy the contents of the public key.
 3. Go to [GitHub](https://github.com) and log in.
@@ -67,16 +66,14 @@ Due to recent Ngrok policy changes, using its services might be limited:
 2. Navigate to the "Authtoken" section of the dashboard.
 3. Copy your auth token.
 
-
 ## Using the SSH Setup on Kaggle
-
-
 
 - Create a Kaggle notebook, choose your desired GPU, adjust persistence if needed, enable internet access.
 
 <img src="images/kaggle1.png" width="200" height="300">
 
 - Run the following commands in a notebook cell:
+
 ```bash
 %%bash
 # Step 1: pre-capture environment variables
@@ -99,17 +96,16 @@ chmod +x setup_ssh.sh
 # Step 4: Run the ngrok setup with Python
 python3 setup_kaggle_ssh.py <you_authtoken>
 ```
+
 - Wait until the setup is complete as shown in the image below.
 
 <img src="images/kaggle2.png">
-
 
 ## Connect via SSH
 
 - Install the required VSCode extensions.
 
 <img src="images/vscode1.png">
-
 
 - Hit `ctrl` + `shift` + `p`, search for `Remote-SSH: Connect to Host` and choose `Configure SSH Hosts`
 
@@ -138,12 +134,15 @@ Host kaggle-notebook
 - A new window will appear; if prompted for the OS, choose Linux, then continue and enter your password if required. That's it!
 
 - Note that the first time you connect if it said `could not connect...` then you need to empty your config file and this time choose `Add New SSH Host...` and paste this command in
+
 ```bash
 ssh root@<HostName> -p <Port>
 ```
+
 Replace `<HostName>` and `<Port>` like before
 
-- After connected you can open terminal and run the following command to install necessary extension 
+- After connected you can open terminal and run the following command to install necessary extension
+
 ```sh
     ./working/Kaggle_VSCode_Remote_SSH/install_extensions.sh
 ```
@@ -160,24 +159,6 @@ Replace `<HostName>` and `<Port>` like before
 - **Connectivity Issues**: Ensure that your Kaggle Notebook is running and that the ngrok tunnel is active.
 - **Permission Denied**: Verify permissions and paths to your SSH keys and ensure the public key is authorized in the Kaggle Notebook.
 
-## Contribution
-
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or create a pull request.
-
-## Contact
-
 If you have any questions or need further assistance, feel free to reach out:
 
 - Email: [ss1280dzzz@gmail.com](mailto:ss1280dzzz@gmail.com)
-
-For more details or issues, refer to the GitHub issues page or contact me.
-
-## License
-
-This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
-
-## Related Project
-
-If you find this project useful, you might also be interested in another related project that works with VSCode Code-Server in the browser:
-
-- [Kaggle VSCode Automation](https://github.com/buidai123/kaggle-vscode-automation): This repository provides an automated setup for connecting and working with Kaggle notebooks using VSCode Code-Server in the browser for a seamless development experience.
