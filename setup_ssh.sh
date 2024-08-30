@@ -83,8 +83,8 @@ install_packages() {
     source /root/.bashrc
 
     echo "Installing openssh-server..."
-    apt-get update
-    apt-get install -y openssh-server
+    sudo apt-get update
+    sudo apt-get install -y openssh-server
 }
 
 start_ssh_service() {
@@ -98,10 +98,10 @@ cleanup() {
 }
 
 (
+    install_packages
     setup_ssh_directory &
     create_symlink &
     configure_sshd &
-    install_packages
     wait
     start_ssh_service &
     wait
@@ -110,4 +110,3 @@ cleanup() {
 
 echo "Setup script completed successfully"
 echo "All tasks completed successfully"
-
