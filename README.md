@@ -35,8 +35,6 @@ Due to recent Ngrok policy changes, using its services might be limited:
 1. Open your terminal.
 2. Generate a new SSH key pair by running:
 
-   Here I'm using WSL or you can use Git Bash
-
    ```sh
    ssh-keygen -t rsa -b 4096 -C "kaggle_remote_ssh" -f ~/.ssh/kaggle_rsa
    ```
@@ -100,6 +98,9 @@ python3 setup_kaggle_ssh.py <you_authtoken>
 - Wait until the setup is complete as shown in the image below.
 
 <img src="images/kaggle2.png">
+
+> [!NOTE]
+> i use password here as the fallback if the ssh key doesn't work properly so if you're using linux you can't ignore this password
 
 ## Connect via SSH
 
