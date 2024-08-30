@@ -100,7 +100,7 @@ python3 setup_kaggle_ssh.py <you_authtoken>
 <img src="images/kaggle2.png">
 
 > [!NOTE]
-> i use password here as the fallback if the ssh key doesn't work properly so if you're using linux you can't ignore this password
+> i use password here as the fallback if the ssh key doesn't work properly so if you're using linux you can ignore this password
 
 ## Connect via SSH
 
