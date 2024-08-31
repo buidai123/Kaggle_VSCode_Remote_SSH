@@ -148,6 +148,12 @@ Replace `<HostName>` and `<Port>` like before
     ./working/Kaggle_VSCode_Remote_SSH/install_extensions.sh
 ```
 
+> [!TIP]
+>
+> <img src="images/thorium.png">
+>
+> If you're using chromium base browser you can disable baterry saver mode for the kaggle tab by going to `chrome://discards` click to toggle to to disable auto discardable
+
 ## Additional Information
 
 ### Managing SSH Keys
