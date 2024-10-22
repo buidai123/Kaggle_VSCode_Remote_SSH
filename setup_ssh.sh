@@ -31,9 +31,13 @@ AUTH_KEYS_URL=$1
 
 setup_ssh_directory() {
     mkdir -p /kaggle/working/.ssh
-    wget -qO- "$AUTH_KEYS_URL" > /kaggle/working/.ssh/authorized_keys
-    chmod 700 /kaggle/working/.ssh
-    chmod 600 /kaggle/working/.ssh/authorized_keys
+    if wget -qO /kaggle/working/.ssh/authorized_keys "$AUTH_KEYS_URL"; then
+      chmod 700 /kaggle/working/.ssh
+      chmod 600 /kaggle/working/.ssh/authorized_keys
+    else
+      echo "Failed to download authorized keys from $AUTH_KEYS_URL, please make sure to copy the raw url as said in the docs."
+      exit(1)
+    fi
 }
 
 create_symlink() {
@@ -94,7 +98,7 @@ start_ssh_service() {
 }
 
 cleanup() {
-    rm /kaggle/working/kaggle_env_vars.txt
+  [ -f /kaggle/working/kaggle_env_vars.txt ] && rm /kaggle/working/kaggle_env_vars.txt
 }
 
 (
