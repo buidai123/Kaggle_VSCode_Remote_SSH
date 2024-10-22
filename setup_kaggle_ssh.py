@@ -19,16 +19,11 @@ password = generate_random_password()
 print(f"Setting password for root user: {password}")
 subprocess.run(f"echo 'root:{password}' | sudo chpasswd", shell=True, check=True)
 
-subprocess.run("service ssh start", check=True, shell=True)
-subprocess.run("service ssh restart", check=True, shell=True)
-
-
-# config ngrok
 conf.get_default().auth_token = ngrok_auth_token
 conf.get_default().region = 'ap'
 
 # start ngrok tunnel
-tunnel = ngrok.connect(22, "tcp")
+tunnel = ngrok.connect("22", "tcp")
 ngrok_url = tunnel.public_url
 
 if ngrok_url:
