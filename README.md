@@ -23,12 +23,12 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 
 ## SSH Setup
 
-### Important Note
-
-Due to recent Ngrok policy changes, using its services might be limited:
-
-1. **Data Transfer Limits**: Free account are limited to 1GB data transfer.
-2. **Credit or Debit Card Requirement**: New accounts may require a credit or debit card for verification.
+> [!WARNING]
+>
+> Due to recent Ngrok policy changes, using its services might be limited:
+>
+> - TCP endpoints are only available on a free plan after [adding a valid payment method](https://dashboard.ngrok.com/settings#id-verification) to your account.
+> - **Data Transfer Limits**: Free account are limited to 1GB data transfer.
 
 ### Step 1: Generate SSH Keys
 
@@ -52,7 +52,7 @@ Due to recent Ngrok policy changes, using its services might be limited:
 2. Copy the contents of the public key.
 3. Go to [GitHub](https://github.com) and log in.
 4. Create a new GitHub repository (e.g., `SSH_public_key`).
-5. In the repository, create a file named `authorized_keys` and paste your SSH public key into this file.
+5. In the repository, create a file name whatever you want, let's say `authorized_keys` and paste your SSH public key into this file.
 6. Save and commit the file.
 7. Click to `authorized_keys` file then click to `raw` then copy the url like this
 
@@ -100,7 +100,7 @@ python3 setup_kaggle_ssh.py <you_authtoken>
 <img src="images/kaggle2.png">
 
 > [!NOTE]
-> i use password here as the fallback if the ssh key doesn't work properly so if you're using linux you can ignore this password
+> i use password here as the fallback if the ssh key doesn't work properly so if you're using Linux you can ignore this password
 
 ## Connect via SSH
 
@@ -119,7 +119,7 @@ python3 setup_kaggle_ssh.py <you_authtoken>
 - Update your `~/.ssh/config` file on your local machine with the connection details:
 
 ```plaintext
-Host kaggle-notebook
+Host "Kaggle"
     HostName <hostname from script output>
     User root
     Port <port from script output>
@@ -142,7 +142,7 @@ ssh root@<HostName> -p <Port>
 
 Replace `<HostName>` and `<Port>` like before
 
-- After connected you can open terminal and run the following command to install necessary extension
+- After connected go to kaggle folder(you might want to work there). You can open terminal and run the following command to install necessary extension
 
 ```sh
     ./working/Kaggle_VSCode_Remote_SSH/install_extensions.sh
@@ -152,7 +152,7 @@ Replace `<HostName>` and `<Port>` like before
 >
 > <img src="images/thorium.png">
 >
-> If you're using chromium base browser you can disable baterry saver mode for the kaggle tab by going to `chrome://discards` click to toggle to to disable auto discardable
+> If you're using chromium base browser you can disable battery saver mode for the Kaggle tab by going to `chrome://discards` click to toggle to to disable auto discardable
 
 ## Additional Information
 
@@ -162,6 +162,10 @@ Replace `<HostName>` and `<Port>` like before
 - **Security**: Secure your private keys and distribute only public keys.
 
 ### Troubleshooting
+
+> [!IMPORTANT]
+>
+> **Remember to add a CC to your Ngork account first**
 
 - **Connectivity Issues**: Ensure that your Kaggle Notebook is running and that the ngrok tunnel is active.
 - **Permission Denied**: Verify permissions and paths to your SSH keys and ensure the public key is authorized in the Kaggle Notebook.

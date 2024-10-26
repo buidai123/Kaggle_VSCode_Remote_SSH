@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Exit immediately if a command exits with a non-zero status
+set -e # Exit immediately if a command exits with a non-zero status
 
 # Function to export environment variables from a file
 export_env_vars_from_file() {
@@ -9,7 +9,7 @@ export_env_vars_from_file() {
         if [[ "$line" =~ ^[A-Z0-9_]+=.* ]]; then
             export "$line"
         fi
-    done < "$env_file"
+    done <"$env_file"
 }
 
 # Path to the captured environment variables file
@@ -31,9 +31,13 @@ AUTH_KEYS_URL=$1
 
 setup_ssh_directory() {
     mkdir -p /kaggle/working/.ssh
-    wget -qO- "$AUTH_KEYS_URL" > /kaggle/working/.ssh/authorized_keys
-    chmod 700 /kaggle/working/.ssh
-    chmod 600 /kaggle/working/.ssh/authorized_keys
+    if wget -qO /kaggle/working/.ssh/authorized_keys "$AUTH_KEYS_URL"; then
+        chmod 700 /kaggle/working/.ssh
+        chmod 600 /kaggle/working/.ssh/authorized_keys
+    else
+        echo "Failed to download authorized keys from $AUTH_KEYS_URL, please make sure to copy the raw url as said in the docs."
+        exit 1
+    fi
 }
 
 create_symlink() {
@@ -70,7 +74,7 @@ configure_sshd() {
         echo "PermitTunnel yes"
         echo "ClientAliveInterval 60"
         echo "ClientAliveCountMax 2"
-    } >> /etc/ssh/sshd_config
+    } >>/etc/ssh/sshd_config
 }
 
 install_packages() {
@@ -79,7 +83,7 @@ install_packages() {
         echo 'export PATH=$PATH:/usr/local/cuda/bin:/usr/local/nvidia/bin:/opt/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
         echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/lib:/usr/local/lib/x86_64-linux-gnu:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/opt/conda/lib:$LD_LIBRARY_PATH'
         echo 'export CUDA_HOME=/usr/local/cuda'
-    } >> /root/.bashrc
+    } >>/root/.bashrc
     source /root/.bashrc
 
     echo "Installing openssh-server..."
@@ -94,7 +98,7 @@ start_ssh_service() {
 }
 
 cleanup() {
-    rm /kaggle/working/kaggle_env_vars.txt
+    [ -f /kaggle/working/kaggle_env_vars.txt ] && rm /kaggle/working/kaggle_env_vars.txt
 }
 
 (
