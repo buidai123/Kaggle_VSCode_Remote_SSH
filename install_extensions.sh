@@ -5,7 +5,8 @@ extensions=(
     "ms-python.python"
     "ms-toolsai.jupyter"
     "CS50.ddb50"
-    "wheredoesyourmindgo.gruvbox-concoctis"
+    "enkia.tokyo-night"
+    # add more extensions here
 )
 
 # Install each extension
