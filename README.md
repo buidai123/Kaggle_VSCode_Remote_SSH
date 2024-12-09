@@ -16,4 +16,4 @@
 
 5GB of data transferring per **DAY** vs 1GB per _month_ ( **150x** daily data transfer quite impressive right?)
 
-![image](https://gist.github.com/user-attachments/assets/2f4d693c-32e4-4873-ad58-c704551e8c41)
+![image](https://github.com/user-attachments/assets/96b2c14a-dc22-46db-a8f0-7229380a6173)
