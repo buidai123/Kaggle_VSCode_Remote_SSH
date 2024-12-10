@@ -28,24 +28,22 @@ As for now use this
 !chmod +x setup_ssh.sh
 !./setup_ssh.sh <your_public_key_repo>
 !./zrok_setup.sh
-
-# Or even simpler:
 !zrok enable <your_zrok_token>
 !sleep 5
 !zrok share private --backend-mode tcpTunnel localhost:22
 ```
 
-for zrok token go [here](https://myzrok.io/) and make your own account find your zrok token here
+for zrok token go [here](https://myzrok.io/) and make your own account, you will find your zrok token here
 
 > [!NOTE]
 >
-> remember to change your account to starter plan that way you can NetFoundry's public zrok instance.
+> remember to change your account to starter plan that way you can use NetFoundry's public zrok instance.
 
 ![image](https://github.com/user-attachments/assets/5692143f-617e-40a0-8700-aea87aac1e0d)
 
 then you're good to go
 
-After finishing running in the kaggle you will have little like token at the end copy it
+After finishing running in the kaggle you will have little like token at the end, copy it
 
 go [here](https://docs.zrok.io/docs/guides/install/) install zrok in your local machine
 
@@ -71,7 +69,7 @@ use
 ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p <port(here mine is 9191)> root@127.0.0.1
 ```
 
-the port seems to persist so you don't have to adjust it every time you create a new instance
+the port seems like persist so you don't have to adjust it every time you create a new instance
 
 alternative you can put this in the `config` file at ~/.ssh
 
