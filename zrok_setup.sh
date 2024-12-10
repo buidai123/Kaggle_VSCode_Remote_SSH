@@ -37,7 +37,7 @@ install_Zrok() {
 setup_session() {
   echo "Setting up Zrok environment"
   chmod +x ./zrok_helper.py # make sure the helper function executable
-  ./zrok_helper.py "$ZROK_TOKEN"
+  python3 ./zrok_helper.py "$ZROK_TOKEN"
 }
 
 install_Zrok
