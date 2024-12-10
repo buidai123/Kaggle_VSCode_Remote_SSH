@@ -19,17 +19,25 @@ install_Zrok() {
     wget -qi -
 
   echo "Extracting Zrok"
-  tar -xzf zrok_*_linux_amd64.tar.gz -C /usr/local/bin/
+  if ! tar -xzf zrok_*_linux_amd64.tar.gz -C /usr/local/bin/; then
+    echo "ERROR: Failed to extract Zrok"
+    exit 1
+  fi
   rm zrok_*_linux_amd64.tar.gz
+
+  # check if zrok is installed correctly
+  if ! zrok version &>/dev/null; then
+    echo "Error: Zrok install failed"
+    exit 1
+  fi
 
   zrok version
 }
 
 setup_session() {
   echo "Setting up Zrok environment"
-  zrok enable "$ZROK_TOKEN"
-  sleep 5
-  zrok share private --backend-mode tcpTunnel localhost:22
+  chmod +x ./zrok_helper.py # make sure the helper function executable
+  ./zrok_helper.py "$ZROK_TOKEN"
 }
 
 install_Zrok
