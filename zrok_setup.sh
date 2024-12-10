@@ -2,8 +2,6 @@
 
 set -e
 
-ZROK_TOKEN=$1
-
 if [ -z "$ZROK_TOKEN" ]; then
   echo "Looks like you forgot to enter Zrok token?"
   echo "Usage: ./zrok_setup.sh <zrok-token>"
@@ -34,17 +32,4 @@ install_Zrok() {
   zrok version
 }
 
-setup_session() {
-  echo "Setting up Zrok environment"
-  # TODO: find a way to run zrok_helper in %%bash magic under ipython
-  chmod +x ./zrok_helper.py # make sure the helper function executable
-
-  python3 -c "
-  import IPython
-  IPython.start_ipython(argv=['--no-banner'])
-  %run ./zrok_helper.py $ZROK_TOKEN
-    "
-}
-
 install_Zrok
-setup_session
