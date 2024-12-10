@@ -2,13 +2,7 @@
 
 set -e
 
-if [ -z "$ZROK_TOKEN" ]; then
-  echo "Looks like you forgot to enter Zrok token?"
-  echo "Usage: ./zrok_setup.sh <zrok-token>"
-  exit 1
-fi
-
-install_Zrok() {
+install_zrok() {
   echo "Downloading latest zrok release"
   curl -s https://api.github.com/repos/openziti/zrok/releases/latest |
     grep "browser_download_url.*linux_amd64.tar.gz" |
@@ -32,4 +26,4 @@ install_Zrok() {
   zrok version
 }
 
-install_Zrok
+install_zrok
