@@ -43,7 +43,7 @@ for zrok token go [here](https://myzrok.io/) and make your own account, you will
 
 then you're good to go
 
-After finishing running in the kaggle you will have little like token at the end, copy it
+After finishing running in the kaggle you will have a little like token at the end, copy it
 
 go [here](https://docs.zrok.io/docs/guides/install/) install zrok in your local machine
 
@@ -103,3 +103,9 @@ rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.
 ```
 
 ![rsync](https://github.com/user-attachments/assets/74387224-c54e-41c6-a8d0-9466a6c12315)
+
+> [!TIP]
+>
+> Remember that you need to delete the kaggle instance in zrok when finish, by going to zrok dashboard, click to the kaggle instance and go to tab actions click to delete just simple as that
+>
+> A little trick here when want to exit kaggle remote you can run `zrok disable` it will disable the instance in zrok and exit for you so no need to disable it manually!
