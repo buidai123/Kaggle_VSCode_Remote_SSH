@@ -89,3 +89,17 @@ if you do so you can use this
 ```bash
 ssh Kaggle
 ```
+
+Finally, you might want to transfer files around between local and remote, in our case we can use `rsync` for this:
+
+```bash
+# from local to remote
+rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p 9191" <path_to_the_local_file> root@127.0.0.1:/kaggle/working
+```
+
+```bash
+# from remote to local
+rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p 9191" root@127.0.0.1:<path_to_the_remote_file> <destination_path_in_local>
+```
+
+![rsync](https://github.com/user-attachments/assets/74387224-c54e-41c6-a8d0-9466a6c12315)
