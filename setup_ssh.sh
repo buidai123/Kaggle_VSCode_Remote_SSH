@@ -110,6 +110,7 @@ cleanup() {
     start_ssh_service &
     wait
     cleanup
+    chmod +x install_extensions.sh
 )
 
 echo "Setup script completed successfully"
