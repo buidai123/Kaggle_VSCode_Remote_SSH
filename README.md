@@ -1,25 +1,18 @@
 # Kaggle_VSCode_Remote_SSH
 
-This repository provides an efficient setup for connecting to Kaggle notebooks via SSH using `ngrok`.
+A way to ssh into Kaggle!
 
 ## Table of Contents
 
-1. [Prerequisites](#prerequisites)
-2. [SSH Setup](#ssh-setup)
+1. [SSH Setup](#ssh-setup)
    - [Step 1: Generate SSH Keys](#step-1-generate-ssh-keys)
    - [Step 2: Add SSH Public Key to GitHub](#step-2-add-ssh-public-key-to-github)
    - [Step 3: Get Ngrok Authtoken](#step-3-get-ngrok-authtoken)
-3. [Using the SSH Setup on Kaggle](#using-the-ssh-setup-on-kaggle)
-4. [Connect via SSH](#connect-via-ssh)
-5. [Additional Information](#additional-information)
+2. [Using the SSH Setup on Kaggle](#using-the-ssh-setup-on-kaggle)
+3. [Connect via SSH](#connect-via-ssh)
+4. [Additional Information](#additional-information)
    - [Managing SSH Keys](#managing-ssh-keys)
    - [Troubleshooting](#troubleshooting)
-
-## Prerequisites
-
-- Kaggle Notebook
-- Ngrok account
-- A public repository containing your `authorized_keys` file
 
 ## SSH Setup
 
@@ -36,29 +29,21 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 
 ### Step 1: Generate SSH Keys
 
-1. Open your terminal.
-2. Generate a new SSH key pair by running:
+```sh
+ssh-keygen -t rsa -b 4096 -C "kaggle_remote_ssh" -f ~/.ssh/kaggle_rsa
+```
 
-   ```sh
-   ssh-keygen -t rsa -b 4096 -C "kaggle_remote_ssh" -f ~/.ssh/kaggle_rsa
-   ```
-
-3. Follow the prompts. Save the keys in the location ~/.ssh/kaggle_rsa
+Follow the prompts. Save the keys in the location ~/.ssh/kaggle_rsa
 
 ### Step 2: Add the SSH Public Key to GitHub
 
-1. Locate your public key by running:
+```sh
+cat ~/.ssh/kaggle_rsa.pub
+```
 
-   ```sh
-   cat ~/.ssh/kaggle_rsa.pub
-   ```
+Now you got the key pair, what you need to do now is pushing that key to whatever remote server allow us can fetch it(google drive, or github, gitlab, ...), here i use github
 
-2. Copy the contents of the public key.
-3. Go to [GitHub](https://github.com) and log in.
-4. Create a new GitHub repository (e.g., `SSH_public_key`).
-5. In the repository, create a file name whatever you want, let's say `authorized_keys` and paste your SSH public key into this file.
-6. Save and commit the file.
-7. Click to `authorized_keys` file then click to `raw` then copy the url like this
+Create a new repo, copy `~/.ssh/kaggle_rsa.pub` to that repo and push it to github(remember to make a public repo), now the public key is available on github, you now need to head over to that repository and click to the public key you've pushed now you click to raw button at the top right and copy the url like the image blow
 
 <img src="images/github1.png">
 
@@ -68,11 +53,9 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 2. Navigate to the "Authtoken" section of the dashboard.
 3. Copy your auth token.
 
-## Using the SSH Setup on Kaggle
+## Setup on Kaggle
 
 - Create a Kaggle notebook, choose your desired GPU, adjust persistence if needed, enable internet access.
-
-<img src="images/kaggle1.png" width="200" height="300">
 
 - Run the following commands in a notebook cell:
 
@@ -81,7 +64,7 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 !git clone https://github.com/buidai123/Kaggle_VSCode_Remote_SSH.git /kaggle/working/Kaggle_VSCode_Remote_SSH
 %cd /kaggle/working/Kaggle_VSCode_Remote_SSH
 !pip install -r requirements.txt
-!chmod +x install_extensions.sh setup_kaggle_ssh.py setup_ssh.sh
+!chmod +x setup_kaggle_ssh.py setup_ssh.sh
 !./setup_ssh.sh <your-public-key-link>
 !python3 setup_kaggle_ssh.py <ngrok-auth-key>
 ```
@@ -95,19 +78,19 @@ This repository provides an efficient setup for connecting to Kaggle notebooks v
 
 ## Connect via SSH
 
-- Install the required VSCode extensions.
+Install the required VSCode extensions.
 
 <img src="images/vscode1.png">
 
-- Hit `ctrl` + `shift` + `p`, search for `Remote-SSH: Connect to Host` and choose `Configure SSH Hosts`
+Hit `ctrl` + `shift` + `p`, search for `Remote-SSH: Connect to Host` and choose `Configure SSH Hosts`
 
 <img src="images/vscode2.png">
 
-- Select the first option or paste the path to your config file in the settings.
+Select the first option or paste the path to your config file in the settings.
 
 <img src="images/vscode3.png">
 
-- Update your `~/.ssh/config` file on your local machine with the connection details:
+Update your `~/.ssh/config` file on your local machine with the connection details:
 
 ```plaintext
 Host "Kaggle"
@@ -119,13 +102,13 @@ Host "Kaggle"
 
 <img src="images/vscode4.png">
 
-- Save it and hit `ctrl` + `shift` + `p` again. Choose `Configure SSH Hosts`and select the host name you set earlier.
+Save it and hit `ctrl` + `shift` + `p` again. Choose `Configure SSH Hosts`and select the host name you set earlier.
 
 <img src="images/vscode5.png">
 
-- A new window will appear; if prompted for the OS, choose Linux, then continue and enter your password if required. That's it!
+A new window will appear; if prompted for the OS, choose Linux, then continue and enter your password if required. That's it!
 
-- Note that the first time you connect if it said `could not connect...` then you need to empty your config file and this time choose `Add New SSH Host...` and paste this command in
+Note that the first time you connect if it said `could not connect...` then you need to empty your config file and this time choose `Add New SSH Host...` and paste this command in
 
 ```bash
 ssh root@<HostName> -p <Port>
@@ -133,10 +116,10 @@ ssh root@<HostName> -p <Port>
 
 Replace `<HostName>` and `<Port>` like before
 
-- After connected go to kaggle folder(you might want to work there). You can open terminal and run the following command to install necessary extension
+After connected go to /kaggle/working/ folder(you might want to work there). You can open terminal and run the following command to install necessary extension
 
 ```sh
-    ./working/Kaggle_VSCode_Remote_SSH/install_extensions.sh
+    /kaggle/working/Kaggle_VSCode_Remote_SSH/install_extensions.sh
 ```
 
 > [!TIP]
