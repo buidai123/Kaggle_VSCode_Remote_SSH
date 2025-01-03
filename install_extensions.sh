@@ -2,17 +2,15 @@
 
 # List of extensions to install
 extensions=(
-    "ms-python.python"
-    "ms-toolsai.jupyter"
-    "CS50.ddb50"
-    "enkia.tokyo-night"
-    # add more extensions here
+  "ms-python.python"
+  "ms-toolsai.jupyter"
+  "CS50.ddb50"
+  # add more extensions here
 )
 
 # Install each extension
-for extension in "${extensions[@]}"
-do
-    code --install-extension $extension &
+for extension in "${extensions[@]}"; do
+  code --install-extension $extension &
 done
 
 # Wait for all background jobs (extension installations) to complete
