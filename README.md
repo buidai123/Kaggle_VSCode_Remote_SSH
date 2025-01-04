@@ -41,7 +41,7 @@ Follow the prompts. Save the keys in the location ~/.ssh/kaggle_rsa
 cat ~/.ssh/kaggle_rsa.pub
 ```
 
-Now you got the key pair, what you need to do now is pushing that key to whatever remote server allow us can fetch it(google drive, or github, gitlab, ...), here i use github
+Now you got the key pair, what you need to do now is pushing that key to whatever remote server that allows us to fetch it(google drive, or github, gitlab, ...), here i use github
 
 Create a new repo, copy `~/.ssh/kaggle_rsa.pub` to that repo and push it to github(remember to make a public repo), now the public key is available on github, you now need to head over to that repository and click to the public key you've pushed now you click to raw button at the top right and copy the url like the image blow
 
@@ -55,9 +55,7 @@ Create a new repo, copy `~/.ssh/kaggle_rsa.pub` to that repo and push it to gith
 
 ## Setup on Kaggle
 
-- Create a Kaggle notebook, choose your desired GPU, adjust persistence if needed, enable internet access.
-
-- Run the following commands in a notebook cell:
+Create a Kaggle notebook, choose your desired GPU, adjust persistence if needed, enable internet access. Run the following commands in a notebook cell:
 
 ```bash
 !printenv > /kaggle/working/kaggle_env_vars.txt
@@ -69,7 +67,7 @@ Create a new repo, copy `~/.ssh/kaggle_rsa.pub` to that repo and push it to gith
 !python3 setup_kaggle_ssh.py <ngrok-auth-key>
 ```
 
-- Wait until the setup is complete as shown in the image below.
+Wait until the setup is complete as shown in the image below.
 
 <img src="images/kaggle2.png">
 
