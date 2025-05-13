@@ -5,7 +5,6 @@ ARG ZROK_TOKEN_ARG
 
 ENV AUTH_KEYS_URL=$AUTH_KEYS_URL_ARG
 ENV ZROK_TOKEN=$ZROK_TOKEN_ARG
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
@@ -19,9 +18,10 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /kaggle/working && \
     echo "DUMMY_ENV_VAR=example_value" > /kaggle/working/kaggle_env_vars.txt
 
-WORKDIR /kaggle/working/Kaggle_VSCode_Remote_SSH
+RUN mkdir -p /tmp/Kaggle_VSCode_Remote_SSH
+COPY . /tmp/Kaggle_VSCode_Remote_SSH
 
-COPY . .
+WORKDIR /tmp/Kaggle_VSCode_Remote_SSH
 
 # make scripts executable
 RUN chmod +x setup_kaggle_zrok.sh install_extensions.sh test_all.sh
