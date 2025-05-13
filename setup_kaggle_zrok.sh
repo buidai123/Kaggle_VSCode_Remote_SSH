@@ -78,8 +78,7 @@ setup_environment_variables() {
         printenv | while IFS='=' read -r key value; do
           # Properly escape single quotes for bash export
           escaped_value_final=$(printf "%s" "$value" | sed "s/'/'\\''/g")
-          if [[ "$key" != "PATH" && "$key" != "LD_LIBRARY_PATH" && "$key" != "CUDA_HOME" ]]; then
-            echo "export ${key}='${escaped_value_final}'"
+          echo "export ${key}='${escaped_value_final}'"
           fi
         done
         echo "# End of Kaggle instance environment variables"
