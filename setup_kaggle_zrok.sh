@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e # Exit immediately if a command exits with a non-zero status
-
+set -e
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: ./setup_kaggle_zrok.sh <authorized_keys_url>"
@@ -13,7 +12,7 @@ AUTH_KEYS_URL=$1
 setup_ssh_directory() {
     echo "Setting up SSH directory in user's home..."
     # If running as root, $HOME/.ssh becomes /root/.ssh
-    local ssh_dir_path="$HOME/.ssh" 
+    local ssh_dir_path="$HOME/.ssh"
     mkdir -p "$ssh_dir_path"
     if wget -qO "$ssh_dir_path/authorized_keys" "$AUTH_KEYS_URL"; then
         chmod 700 "$ssh_dir_path"
@@ -26,7 +25,6 @@ setup_ssh_directory() {
 }
 
 create_symlink() {
-    # The script is now expected to run from /tmp/Kaggle_VSCode_Remote_SSH
     local vscode_dir_in_repo="/tmp/Kaggle_VSCode_Remote_SSH/.vscode"
     if [ -d "$vscode_dir_in_repo" ]; then
         [ -L /kaggle/.vscode ] && rm -f /kaggle/.vscode # Use -f to suppress error if link doesn't exist
@@ -41,9 +39,7 @@ create_symlink() {
 configure_sshd() {
     mkdir -p /var/run/sshd
     echo "Configuring sshd..."
-    # Appending settings to sshd_config. 
-    # Consider a more robust method if the script might be run multiple times to avoid duplicates.
-    cat << EOF >> /etc/ssh/sshd_config
+    cat <<EOF >>/etc/ssh/sshd_config
 Port 22
 Protocol 2
 PermitRootLogin yes
@@ -65,25 +61,24 @@ PermitTunnel yes
 ClientAliveInterval 60
 ClientAliveCountMax 2
 EOF
-    # Add a newline to potentially separate future appends
-    echo "" >> /etc/ssh/sshd_config
+    echo "" >>/etc/ssh/sshd_config
     echo "sshd_config updated. Note: Appended settings. Ensure no conflicting duplicates exist if run multiple times."
 }
 
 setup_environment_variables() {
     echo "Appending current environment variables to /root/.bashrc..."
     {
-        echo "" # Add a newline for separation
+        echo ""
         echo "# Added by setup_kaggle_zrok.sh: Kaggle instance environment variables"
         printenv | while IFS='=' read -r key value; do
-          # Properly escape single quotes for bash export
-          escaped_value_final=$(printf "%s" "$value" | sed "s/'/'\\''/g")
-          echo "export ${key}='${escaped_value_final}'"
+            # Properly escape single quotes for bash export
+            escaped_value_final=$(printf "%s" "$value" | sed "s/'/'\\''/g")
+            echo "export ${key}='${escaped_value_final}'"
         done
         echo "# End of Kaggle instance environment variables"
-        echo "" # Add a newline for separation
+        echo ""
     } >>/root/.bashrc
-    
+
     echo "Sourcing /root/.bashrc for current script session (best effort)..."
     source /root/.bashrc || echo "Warning: Sourcing /root/.bashrc encountered an issue. SSH sessions should still inherit env vars."
 }
@@ -95,36 +90,36 @@ install_packages() {
 }
 
 install_zrok() {
-  echo "Downloading latest zrok release"
-  curl -s https://api.github.com/repos/openziti/zrok/releases/latest |
-    grep "browser_download_url.*linux_amd64.tar.gz" |
-    cut -d : -f 2,3 |
-    tr -d \" |
-    wget -qi -
+    echo "Downloading latest zrok release"
+    curl -s https://api.github.com/repos/openziti/zrok/releases/latest |
+        grep "browser_download_url.*linux_amd64.tar.gz" |
+        cut -d : -f 2,3 |
+        tr -d \" |
+        wget -qi -
 
-  echo "Extracting Zrok"
-  if ! tar -xzf zrok_*_linux_amd64.tar.gz -C /usr/local/bin/; then
-    echo "ERROR: Failed to extract Zrok"
-    exit 1
-  fi
-  rm zrok_*_linux_amd64.tar.gz
+    echo "Extracting Zrok"
+    if ! tar -xzf zrok_*_linux_amd64.tar.gz -C /usr/local/bin/; then
+        echo "ERROR: Failed to extract Zrok"
+        exit 1
+    fi
+    rm zrok_*_linux_amd64.tar.gz
 
-  # check if zrok is installed correctly
-  if ! zrok version &>/dev/null; then
-    echo "Error: Zrok install failed"
-    exit 1
-  fi
+    # check if zrok is installed correctly
+    if ! zrok version &>/dev/null; then
+        echo "Error: Zrok install failed"
+        exit 1
+    fi
 
-  echo "Zrok installed successfully:"
-  zrok version
+    echo "Zrok installed successfully:"
+    zrok version
 }
 
 setup_install_extensions_command() {
     echo "Setting up 'install_extensions' command..."
     # SCRIPT_DIR will point to the directory where setup_kaggle_zrok.sh is located
     local SCRIPT_DIR
-    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-    local install_script_source="$SCRIPT_DIR/install_extensions.sh" 
+    SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+    local install_script_source="$SCRIPT_DIR/install_extensions.sh"
     local install_script_target="/usr/local/bin/install_extensions"
 
     if [ -f "$install_script_source" ]; then
@@ -144,28 +139,17 @@ start_ssh_service() {
     service ssh restart
 }
 
-cleanup() {
-    echo "Performing cleanup..."
-    # No longer need to remove /kaggle/working/kaggle_env_vars.txt
-
-    # Define the path to the repository that needs to be cleaned up (where this script runs from)
-}
-
 (
     setup_environment_variables
     install_packages
     install_zrok
-    setup_ssh_directory # Run sequentially
-    configure_sshd      # Run sequentially
+    setup_ssh_directory # run sequentially
+    configure_sshd      # run sequentially
     create_symlink &
-    setup_install_extensions_command 
-    wait # For create_symlink
+    setup_install_extensions_command
+    wait # for create_symlink
     start_ssh_service &
-    wait # For start_ssh_service
-    # Removed cleanup and chmod +x install_extensions.sh from this block
+    wait # for start_ssh_service
 )
 
-cleanup # Call cleanup after the main setup block
-
 echo "Setup script completed. SSH service should be running."
-# Removed the second "All tasks completed successfully" as it's redundant
