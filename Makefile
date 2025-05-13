@@ -38,3 +38,5 @@ help:
 	@echo "Example for fish shell:"
 	@echo "  set -x AUTH_KEYS_URL \"your_authorized_keys_url\""
 	@echo "  set -x ZROK_TOKEN \"your_zrok_token\""
+	@echo ""
+	@echo "The test target will now run the container, which will execute test_all.sh by default (as set in Dockerfile)."
