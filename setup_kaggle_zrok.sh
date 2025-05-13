@@ -2,12 +2,13 @@
 
 set -e
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: ./setup_kaggle_zrok.sh <authorized_keys_url>"
+if [ "$#" -ne 2 ]; then
+    echo "Usage: ./setup_kaggle_zrok.sh <authorized_keys_url> <zrok_token>"
     exit 1
 fi
 
 AUTH_KEYS_URL=$1
+ZROK_TOKEN=$2
 
 setup_ssh_directory() {
     echo "Setting up SSH directory in user's home..."
@@ -139,6 +140,25 @@ start_ssh_service() {
     service ssh restart
 }
 
+start_zrok() {
+    echo "Starting zrok service in headless mode..."
+    if [ -z "$ZROK_TOKEN" ]; then
+        echo "Error: ZROK_TOKEN not provided."
+        return 1
+    fi
+    
+    echo "Enabling zrok with provided token..."
+    zrok enable "$ZROK_TOKEN" || {
+        echo "Failed to enable zrok with provided token."
+        return 1
+    }
+    
+    echo "Starting zrok share in headless mode..."
+    zrok share private --headless --backend-mode tcpTunnel localhost:22
+    
+    echo "zrok setup completed."
+}
+
 (
     setup_environment_variables
     install_packages
@@ -148,8 +168,8 @@ start_ssh_service() {
     create_symlink &
     setup_install_extensions_command
     wait # for create_symlink
-    start_ssh_service &
-    wait # for start_ssh_service
+    start_ssh_service
+    start_zrok
 )
 
 echo "Setup script completed. SSH service should be running."
