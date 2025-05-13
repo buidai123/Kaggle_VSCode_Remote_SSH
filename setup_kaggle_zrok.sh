@@ -79,7 +79,6 @@ setup_environment_variables() {
           # Properly escape single quotes for bash export
           escaped_value_final=$(printf "%s" "$value" | sed "s/'/'\\''/g")
           echo "export ${key}='${escaped_value_final}'"
-          fi
         done
         echo "# End of Kaggle instance environment variables"
         echo "" # Add a newline for separation
