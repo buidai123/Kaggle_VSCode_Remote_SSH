@@ -154,7 +154,7 @@ cleanup() {
 }
 
 (
-    # setup_environment_variables
+    setup_environment_variables
     install_packages
     install_zrok
     setup_ssh_directory # Run sequentially
