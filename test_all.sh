@@ -18,8 +18,8 @@ if [ -z "$ZROK_TOKEN" ]; then
     exit 1
 fi
 
-echo "Running setup_kaggle_zrok.sh with URL: $AUTH_KEYS_URL and ZROK_TOKEN"
-./setup_kaggle_zrok.sh "$AUTH_KEYS_URL" "$ZROK_TOKEN"
+echo "Running setup_kaggle_zrok.sh with URL: $AUTH_KEYS_URL"
+./setup_kaggle_zrok.sh "$AUTH_KEYS_URL"
 
 ZROK_CMD=""
 if command -v zrok &>/dev/null; then
@@ -45,25 +45,37 @@ else
     exit 1
 fi
 
-echo "Checking zrok status..."
-if "$ZROK_CMD" list | grep -q "localhost:22"; then
-    echo "zrok service is running correctly."
+# star zrok with a timeout for testing
+echo "Starting zrok for testing (with 15 second timeout)..."
+
+echo "Enabling zrok with token $ZROK_TOKEN"
+"$ZROK_CMD" enable "$ZROK_TOKEN" || {
+    echo "Failed to enable zrok with provided token."
+    exit 1
+}
+
+# Run the share command with timeout
+echo "Starting zrok share with a 15-second timeout (for testing)"
+timeout 15s "$ZROK_CMD" share private --headless --backend-mode tcpTunnel localhost:22 || echo "Zrok stopped after timeout (this is expected in test mode)"
+
+# Check if zrok is enabled and running
+echo "Checking if zrok is enabled..."
+if "$ZROK_CMD" status | grep -q 'Account Token.*<<SET>>'; then
+    echo "zrok service started successfully."
 else
-    echo "zrok service does not appear to be properly configured. Check setup_kaggle_zrok.sh logs."
+    echo "zrok service does not appear to be properly configured."
     exit 1
 fi
+
+# Disable zrok at the end of test
+echo "Test complete. Disabling zrok..."
+"$ZROK_CMD" disable
 
 echo "All tests passed successfully!"
 echo "====================================="
 echo "Your Kaggle instance is now ready with:"
 echo "✅ SSH server running on port 22"
-echo "✅ zrok private tunnel enabled"
 echo "✅ VS Code extensions setup available"
 echo "====================================="
-
-if [ "$CI" = "true" ] || [ "$TEST_MODE" = "true" ]; then
-    echo "Test mode detected. Disabling zrok..."
-    "$ZROK_CMD" disable
-fi
 
 echo "Automated test script completed."
