@@ -136,8 +136,7 @@ setup_install_extensions_command() {
 
 start_ssh_service() {
     service ssh start
-    service ssh enable
-    service ssh restart
+    echo "SSH service should be running."
 }
 
 start_zrok() {
