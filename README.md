@@ -25,6 +25,11 @@ Paste this into Kaggle cell
 !curl -sS https://raw.githubusercontent.com/buidai123/Kaggle_VSCode_Remote_SSH/refs/heads/zrok/setup.sh | bash -s -- -k <public_key_url> -t <zrok_token>
 ```
 
+> [!NOTE]
+>
+> replace <public_key_url> with the URL of your public key file and <zrok_token> with your Zrok token.
+
+
 Wait for the setup to finish, you should see something like this at the end
 
 ![Image](https://github.com/user-attachments/assets/22f564f3-8622-4c6c-bb82-9c9c63dd322a)
@@ -45,7 +50,7 @@ Copy the URL from your browser's address bar. It usually takes the form like thi
 
 ### How to get zrok token?
 
-Create your zrok account, if you haven't already, go [here](https://myzrok.io/billing) and change your plan to Starter plan, and then create a new token. Then visit [https://api-v1.zrok.io](https://api-v1.zrok.io/) you should setup and get your token there
+Create your zrok account, if you haven't already, go [here](https://myzrok.io/billing) and change your plan to Starter plan, and then create a new token. Finally visit [https://api-v1.zrok.io](https://api-v1.zrok.io/), you should setup and get your token there
 
 ## Client Setup
 
@@ -75,7 +80,7 @@ After completing the Kaggle setup, you'll receive a token. Follow these steps on
 Connect to your Kaggle instance via SSH:
 
 ```bash
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p <port> root@127.0.0.1
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/kaggle_rsa -p 9191 root@127.0.0.1
 ```
 
 Note: The port (e.g., 9191) generally remains consistent across sessions, so no need to adjust it for each new instance.
@@ -110,8 +115,7 @@ rsync -e "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.
 
 > [!NOTE]
 >
-> If you're using the Starter plan, they only offers 2 environment connection on this plan one for you local machine, one for kaggle instance. Each time you ssh into kaggle make sure to visit [https://api-v1.zrok.io/](https://api-v1.zrok.io/) to release the previous kaggle instance or you can use `zrok disable` (run this while connected via SSH to kaggle) before you ending the ssh connection 
->
+> If you're using the Starter plan, they only offer 2 environment connection on this plan one for you local machine, one for kaggle instance. Each time you ssh into kaggle make sure to visit [https://api-v1.zrok.io/](https://api-v1.zrok.io/) to release the previous kaggle instance or you can use `zrok disable` (run this while connected via SSH to kaggle) before you ending the ssh connection 
 
 ## License
 
