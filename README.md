@@ -78,6 +78,8 @@ After completing the Kaggle setup, you'll receive a token. Follow these steps on
 
 ## SSH Connection
 
+*For VSCode check out the [old instrunction](https://github.com/bhdai/kagglelink/blob/ngrok/README.md#connect-via-ssh) (will update this eventually)*
+
 Connect to your Kaggle instance via SSH:
 
 ```bash
