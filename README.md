@@ -22,7 +22,7 @@ One line command setup?
 Paste this into Kaggle cell
 
 ```bash
-!curl -sS https://raw.githubusercontent.com/buidai123/Kaggle_VSCode_Remote_SSH/refs/heads/zrok/setup.sh | bash -s -- -k <public_key_url> -t <zrok_token>
+!curl -sS https://raw.githubusercontent.com/bhdai/kagglelink/refs/heads/zrok/setup.sh | bash -s -- -k <public_key_url> -t <zrok_token>
 ```
 
 > [!NOTE]

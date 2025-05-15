@@ -1,21 +1,20 @@
 #!/bin/bash
-# Setup script for Kaggle_VSCode_Remote_SSH
-# This script clones the repository and sets up zrok for SSH access
 
 set -e
 
 echo "===================================="
-echo "Kaggle VSCode Remote SSH Setup Tool"
+echo "kagglelink setup tool"
+echo "For more information check out: https://github.com/bhdai/kagglelink.git"
 echo "===================================="
 
 # Default repository URL and branch
-REPO_URL="https://github.com/buidai123/Kaggle_VSCode_Remote_SSH.git"
+REPO_URL="https://github.com/bhdai/kagglelink.git"
 BRANCH="zrok"
-INSTALL_DIR="/tmp/Kaggle_VSCode_Remote_SSH"
+INSTALL_DIR="/tmp/kagglelink"
 
 # Function to display usage information
 usage() {
-    echo "Usage: curl -sS https://raw.githubusercontent.com/buidai123/Kaggle_VSCode_Remote_SSH/refs/heads/zrok/setup.sh | bash -s -- -k <your_public_key_url> -t <your_zrok_token>"
+    echo "Usage: curl -sS https://raw.githubusercontent.com/bhdai/kagglelink/refs/heads/zrok/setup.sh | bash -s -- -k <your_public_key_url> -t <your_zrok_token>"
     echo ""
     echo "Options:"
     echo "  -k, --keys-url URL    URL to your authorized_keys file"
@@ -79,4 +78,4 @@ echo "⏳ Starting zrok service with your token..."
 echo "✅ Setup complete!"
 echo "✅ You should now be able to connect to your Kaggle instance via SSH."
 echo "✅ If you see a URL above, use that to connect from your local machine."
-echo "✅ For more information, visit: https://github.com/buidai123/Kaggle_VSCode_Remote_SSH"
+echo "✅ For more information, visit: https://github.com/bhdai/kagglelink"

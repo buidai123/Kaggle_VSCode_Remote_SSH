@@ -18,10 +18,10 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /kaggle/working && \
     echo "DUMMY_ENV_VAR=example_value" > /kaggle/working/kaggle_env_vars.txt
 
-RUN mkdir -p /tmp/Kaggle_VSCode_Remote_SSH
-COPY . /tmp/Kaggle_VSCode_Remote_SSH
+RUN mkdir -p /tmp/kagglelink
+COPY . /tmp/kagglelink
 
-WORKDIR /tmp/Kaggle_VSCode_Remote_SSH
+WORKDIR /tmp/kagglelink
 
 # make scripts executable
 RUN chmod +x setup_kaggle_zrok.sh install_extensions.sh test_all.sh

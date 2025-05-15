@@ -25,7 +25,7 @@ setup_ssh_directory() {
 }
 
 create_symlink() {
-    local vscode_dir_in_repo="/tmp/Kaggle_VSCode_Remote_SSH/.vscode"
+    local vscode_dir_in_repo="/tmp/kagglelink/.vscode"
     if [ -d "$vscode_dir_in_repo" ]; then
         [ -L /kaggle/.vscode ] && rm -f /kaggle/.vscode # Use -f to suppress error if link doesn't exist
         ln -s "$vscode_dir_in_repo" /kaggle/.vscode
