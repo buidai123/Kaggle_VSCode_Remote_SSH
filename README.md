@@ -6,6 +6,7 @@ A streamlined solution for accessing Kaggle computational resources via SSH and 
 
 kagglelink allows you to ssh into Kaggle and leverage those kaggle resources, or you can run kaggles notebook remotely using VSCode, with more coding support, and better development environment
 
+![Image](https://github.com/user-attachments/assets/db4454ff-5545-4094-adeb-47b74ab0c33a)
 
 ## Requirements
 
@@ -64,9 +65,9 @@ After completing the Kaggle setup, you'll receive a token. Follow these steps on
    ```
 
 2. Enable zrok in your local machine
-  ```bash
-  zrok enable <zrok-token>
-  ```
+      ```bash
+      zrok enable <zrok-token>
+      ```
 
 2. Access your Kaggle instance using the token:
    ```bash
