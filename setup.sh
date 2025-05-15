@@ -4,17 +4,16 @@ set -e
 
 echo "===================================="
 echo "kagglelink setup tool"
-echo "For more information check out: https://github.com/bhdai/kagglelink.git"
+echo "For more information check out: https://github.com/bhdai/kagglelink"
 echo "===================================="
 
 # Default repository URL and branch
 REPO_URL="https://github.com/bhdai/kagglelink.git"
-BRANCH="zrok"
 INSTALL_DIR="/tmp/kagglelink"
 
 # Function to display usage information
 usage() {
-    echo "Usage: curl -sS https://raw.githubusercontent.com/bhdai/kagglelink/refs/heads/zrok/setup.sh | bash -s -- -k <your_public_key_url> -t <your_zrok_token>"
+    echo "Usage: curl -sS https://raw.githubusercontent.com/bhdai/kagglelink/refs/heads/main/setup.sh | bash -s -- -k <your_public_key_url> -t <your_zrok_token>"
     echo ""
     echo "Options:"
     echo "  -k, --keys-url URL    URL to your authorized_keys file"
@@ -61,7 +60,7 @@ if [ -d "$INSTALL_DIR" ]; then
     rm -rf "$INSTALL_DIR"
 fi
 
-git clone -b "$BRANCH" "$REPO_URL" "$INSTALL_DIR"
+git clone "$REPO_URL" "$INSTALL_DIR"
 
 echo "⏳ Changing to repository directory..."
 cd "$INSTALL_DIR"
