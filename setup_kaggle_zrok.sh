@@ -77,8 +77,17 @@ setup_environment_variables() {
         done
         echo "# End of Kaggle instance environment variables"
         
-        echo "# Add VS Code server bin directory to PATH"
-        echo 'export PATH="$HOME/.vscode-server/cli/servers/Stable-*/server/bin/remote-cli:$PATH"'
+        echo "# Dynamic VS Code server path resolution"
+        cat <<'EOT'
+# Dynamic VS Code server path resolution
+if [ -d "$HOME/.vscode-server" ]; then
+  # Find the most recent VS Code server directory
+  VSCODE_SERVER_DIR=$(find $HOME/.vscode-server/cli/servers -type d -name "Stable-*" | sort | tail -n 1)
+  if [ -n "$VSCODE_SERVER_DIR" ]; then
+    export PATH="$VSCODE_SERVER_DIR/server/bin/remote-cli:$PATH"
+  fi
+fi
+EOT
         echo ""
     } >>/root/.bashrc
 
