@@ -76,6 +76,9 @@ setup_environment_variables() {
             echo "export ${key}='${escaped_value_final}'"
         done
         echo "# End of Kaggle instance environment variables"
+        
+        echo "# Add VS Code server bin directory to PATH"
+        echo 'export PATH="$HOME/.vscode-server/cli/servers/Stable-*/server/bin/remote-cli:$PATH"'
         echo ""
     } >>/root/.bashrc
 
