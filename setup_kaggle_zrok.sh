@@ -24,13 +24,24 @@ setup_ssh_directory() {
     fi
 }
 
-create_symlink() {
+copy_vscode_dir() {
     local vscode_dir_in_repo="/tmp/kagglelink/.vscode"
     if [ -d "$vscode_dir_in_repo" ]; then
-        [ -L /kaggle/.vscode ] && rm -f /kaggle/.vscode # Use -f to suppress error if link doesn't exist
-        ln -s "$vscode_dir_in_repo" /kaggle/.vscode
-        echo "Symlink to .vscode folder created (points to $vscode_dir_in_repo)."
-        ls -l /kaggle/.vscode
+        [ -d "/kaggle/.vscode" ] && rm -rf "/kaggle/.vscode"
+        mkdir -p "/kaggle/.vscode"
+        cp -r "$vscode_dir_in_repo/"* "/kaggle/.vscode/"
+        echo ".vscode folder copied to /kaggle directory."
+        
+        mkdir -p "/kaggle/working"
+        [ -d "/kaggle/working/.vscode" ] && rm -rf "/kaggle/working/.vscode"
+        mkdir -p "/kaggle/working/.vscode"
+        cp -r "$vscode_dir_in_repo/"* "/kaggle/working/.vscode/"
+        echo ".vscode folder copied to /kaggle/working directory."
+        
+        echo "Contents of /kaggle/.vscode:"
+        ls -l "/kaggle/.vscode"
+        echo "Contents of /kaggle/working/.vscode:"
+        ls -l "/kaggle/working/.vscode"
     else
         echo ".vscode directory not found in repository at $vscode_dir_in_repo."
     fi
@@ -156,7 +167,7 @@ start_ssh_service() {
     install_zrok
     setup_ssh_directory # run sequentially
     configure_sshd      # run sequentially
-    create_symlink &
+    copy_vscode_dir &
     setup_install_extensions_command
     wait # for create_symlink
     start_ssh_service
